@@ -77,7 +77,12 @@
       ...original, config, torneos,
       plantel: tabs.Plantel.map(j => ({ nombre: j.nombre, apodo: j.apodo, dorsal: number(j.dorsal), pos: j.posicion, goles: number(j.goles), ig: j.instagram, img: j.foto })),
       figuras: tabs.Figuras.filter(f => date(f.dia)).map(f => ({ jugador: f.jugador, torneo: f.torneo, fecha: f.dia, texto: f.texto, img: f.foto })),
-      sponsors: tabs.Sponsors.filter(s => s.estado.toLowerCase() === 'activo')
+      sponsors: tabs.Sponsors.filter(s => s.estado.toLowerCase() === 'activo').map(s => ({
+        ...s,
+        // La primera fila de ByM Tech conserva el nombre anterior del archivo.
+        foto: s.foto === 'faef24e7-4586-475d-95eb-d88c39ee016f_removalai_preview.png'
+          ? 'img/bym-tech.png' : s.foto
+      }))
     };
   }
   window.CEOYJ.readSheet = async original => {
