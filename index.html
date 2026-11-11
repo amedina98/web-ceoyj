@@ -367,7 +367,7 @@ dialog::backdrop{background:rgba(3,4,10,.86);backdrop-filter:blur(6px)}
       <li><a href="#plantel">Plantel</a></li>
       <li><a href="#figuras">Figuras</a></li>
       <li><a href="#sponsors">Sponsors</a></li>
-      <li id="registration-nav" hidden><a id="registration-link">Inscripciones</a></li>
+      <li id="registration-nav"><a id="registration-link" href="https://script.google.com/macros/s/AKfycbxSUGXkNjeiWRkn_COgLRRUQjboIQIYO-EXRyWVLOw8SXOo2p_ejHMJHS9ZF6_Q3qZdRA/exec">Inscripciones</a></li>
       <li class="contact-mobile"><a data-email href="mailto:alexisriver35@gmail.com">Contactanos</a></li>
     </ul>
     <a class="btn btn-pink contact-top" data-email href="mailto:alexisriver35@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>Contactanos</a>
@@ -574,7 +574,7 @@ dialog::backdrop{background:rgba(3,4,10,.86);backdrop-filter:blur(6px)}
 <footer>
   <div class="wrap">
     <div class="fb"><img src="img/logo.png" alt="" width="54" height="54"><div><b>Cerrá el Orto y Jugá</b>Campeones 2024 · Torneo El Ceibo</div></div>
-    <div><a id="team-access" href="https://docs.google.com/spreadsheets/d/1EkS7DvNuwjZHNAIN19rPpwJRm101WR1t/edit?gid=391908218#gid=391908218">Acceso equipo</a></div>
+    <div><a id="team-access" href="https://script.google.com/macros/s/AKfycbxSUGXkNjeiWRkn_COgLRRUQjboIQIYO-EXRyWVLOw8SXOo2p_ejHMJHS9ZF6_Q3qZdRA/exec?vista=admin">Administración</a></div>
     <span class="site-credit">Hecho por <strong>ByM Tech - Argentina</strong></span>
   </div>
 </footer>
@@ -651,9 +651,7 @@ dialog::backdrop{background:rgba(3,4,10,.86);backdrop-filter:blur(6px)}
   const portalUrl = safe(D.config.portal_inscripciones);
   if (/^https:\/\/script\.google\.com\/(?:a\/macros\/[^/]+\/|macros\/)s\/[\w-]+\/exec$/.test(portalUrl)) {
     $('#registration-link').href = portalUrl;
-    $('#registration-nav').hidden = false;
     $('#team-access').href = portalUrl + '?vista=admin';
-    $('#team-access').textContent = 'Administración';
   }
   const sponsorLink = $('#sponsor-form-link');
   if (signup || !contactReady) {
