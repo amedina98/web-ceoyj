@@ -600,6 +600,7 @@ dialog::backdrop{background:rgba(3,4,10,.86);backdrop-filter:blur(6px)}
   const fallbackPhoto = embeddedPhotos['img/logo.png'] || './img/logo.png';
   const photo = value => {
     const input = String(value ?? '').trim();
+    if (input.length <= 46000 && /^data:image\/(?:jpeg|png|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(input)) return input;
     const external = safe(input);
     if (external) return esc(external);
 
@@ -618,6 +619,10 @@ dialog::backdrop{background:rgba(3,4,10,.86);backdrop-filter:blur(6px)}
     const img = event.target;
     if (!(img instanceof HTMLImageElement)) return;
     const src = img.getAttribute('src');
+    if (src?.startsWith('data:image/') && src !== fallbackPhoto) {
+      img.src = fallbackPhoto;
+      return;
+    }
     if (!src?.startsWith('./img/')) return;
     const asset = decodeURIComponent(src.slice(2));
     const embedded = Object.hasOwn(embeddedPhotos, asset) ? embeddedPhotos[asset] : fallbackPhoto;
