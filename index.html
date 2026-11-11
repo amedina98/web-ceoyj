@@ -573,7 +573,7 @@ dialog::backdrop{background:rgba(3,4,10,.86);backdrop-filter:blur(6px)}
 <footer>
   <div class="wrap">
     <div class="fb"><img src="img/logo.png" alt="" width="54" height="54"><div><b>Cerrá el Orto y Jugá</b>Campeones 2024 · Torneo El Ceibo</div></div>
-    <div><a id="team-access" href="https://cerraelortoyjuga.vercel.app/panel.html">Acceso equipo</a></div>
+    <div><a id="team-access" href="https://docs.google.com/spreadsheets/d/1EkS7DvNuwjZHNAIN19rPpwJRm101WR1t/edit?gid=391908218#gid=391908218">Acceso equipo</a></div>
     <span class="site-credit">Hecho por <strong>ByM Tech - Argentina</strong></span>
   </div>
 </footer>
@@ -583,9 +583,9 @@ dialog::backdrop{background:rgba(3,4,10,.86);backdrop-filter:blur(6px)}
 <dialog id="lb"><button class="close" aria-label="Cerrar">×</button><div class="lb" id="lbBody"></div></dialog>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="data.js"></script>
+<script src="data.js?v=20261111"></script>
 <script src="sheets-config.js?v=0728847"></script>
-<script src="sheets.js?v=0728847"></script>
+<script src="sheets.js?v=20261111"></script>
 <script>
 (async () => {
   const { data: D, state } = await CEOYJ.readSheet(CEOYJ.DEFAULT);
@@ -654,7 +654,6 @@ dialog::backdrop{background:rgba(3,4,10,.86);backdrop-filter:blur(6px)}
     sponsorLink.textContent = signup ? 'Abrir formulario de sponsors' : 'Escribinos por Instagram';
     $('#fSponsor').hidden = true;
   }
-  if (state === 'live') $('#team-access').href = window.CEOYJ_SHEET_URL.trim();
   $('#data-state').textContent = state === 'live' ? 'Datos de Google Sheets.' :
     (state === 'offline' ? 'Google Sheets no está disponible. ' : '') + 'Datos de la web original. El fixture incluye resultados y fechas de ejemplo.';
   $('#lema').textContent = D.config.lema;

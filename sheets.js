@@ -9,6 +9,7 @@
     Sponsors: ['nombre', 'foto', 'enlace', 'descripcion', 'estado'],
     Playoffs: ['torneo', 'ronda', 'local', 'visita', 'goles_local', 'goles_visita']
   };
+  const optionalColumns = { Torneos: ['puntos_empate', 'puntos_perdidos'] };
   const pad = n => String(n).padStart(2, '0');
   function value(cell) {
     const v = cell?.v;
@@ -31,11 +32,15 @@
       const timer = setTimeout(fail, 8000);
       window[callback] = response => {
         const table = response?.table;
-        if (response?.status !== 'ok' || headers.some((h, i) => table?.cols[i]?.label !== h)) {
+        const indices = new Map(table?.cols?.map((col, index) => [col.label?.trim().toLowerCase(), index]));
+        if (response?.status !== 'ok' || headers.some(header => !indices.has(header))) {
           fail();
           return;
         }
-        const rows = (table.rows ?? []).map(row => Object.fromEntries(headers.map((h, i) => [h, value(row.c[i])])));
+        const fields = [...headers, ...(optionalColumns[name] ?? [])];
+        const rows = (table.rows ?? []).map(row => Object.fromEntries(
+          fields.map(field => [field, value(row.c[indices.get(field)])])
+        ));
         finish(resolve, rows.filter(row => row[headers[0]]));
       };
       script.onerror = fail;
@@ -68,6 +73,7 @@
       return {
         id: t.id, nombre: t.nombre, formato: t.formato, dia: t.dia, organiza: t.organiza,
         fechaActual: number(t.fecha_actual, 1), puntosVictoria: number(t.puntos_victoria, 3),
+        puntosEmpate: number(t.puntos_empate, 1), puntosDerrota: number(t.puntos_perdidos),
         equipos: [...new Set(partidos.flatMap(p => [p.local, p.visita]))], partidos,
         llaves: rounds.size ? { titulo: t.titulo_playoffs, rondas: [...rounds].map(([nombre, partidos]) => ({ nombre, partidos })) } : null
       };

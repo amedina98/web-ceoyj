@@ -143,16 +143,17 @@
 
   // Tabla calculada a partir de los resultados cargados
   function tabla(t) {
-    const pv = t.puntosVictoria ?? 3, rows = Object.create(null);
+    const pv = t.puntosVictoria ?? 3, pe = t.puntosEmpate ?? 1, pd = t.puntosDerrota ?? 0;
+    const rows = Object.create(null);
     t.equipos.forEach(e => rows[e] = { eq: e, pj: 0, g: 0, e: 0, p: 0, gf: 0, gc: 0, pts: 0, forma: [] });
     t.partidos.slice().sort((a, b) => a.fecha - b.fecha).forEach(m => {
       if (!hasResult(m)) return;
       const L = rows[m.local], V = rows[m.visita]; if (!L || !V) return;
       const gl = +m.gl, gv = +m.gv;
       L.pj++; V.pj++; L.gf += gl; L.gc += gv; V.gf += gv; V.gc += gl;
-      if (gl > gv) { L.g++; V.p++; L.pts += pv; L.forma.push('G'); V.forma.push('P'); }
-      else if (gl < gv) { V.g++; L.p++; V.pts += pv; V.forma.push('G'); L.forma.push('P'); }
-      else { L.e++; V.e++; L.pts++; V.pts++; L.forma.push('E'); V.forma.push('E'); }
+      if (gl > gv) { L.g++; V.p++; L.pts += pv; V.pts += pd; L.forma.push('G'); V.forma.push('P'); }
+      else if (gl < gv) { V.g++; L.p++; V.pts += pv; L.pts += pd; V.forma.push('G'); L.forma.push('P'); }
+      else { L.e++; V.e++; L.pts += pe; V.pts += pe; L.forma.push('E'); V.forma.push('E'); }
     });
     return Object.values(rows).sort((a, b) => b.pts - a.pts || (b.gf - b.gc) - (a.gf - a.gc) || b.gf - a.gf || a.eq.localeCompare(b.eq));
   }
