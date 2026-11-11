@@ -66,6 +66,7 @@
     config: {
       whatsapp: '5491170819647',
       formulario_sponsors: '',
+      portal_inscripciones: '',
       instagram: 'cerraelortoyjuga',
       tiktok: 'cerraelortoyjuga',
       facebook: 'https://www.facebook.com/cerraelortoyjuga',

@@ -367,6 +367,7 @@ dialog::backdrop{background:rgba(3,4,10,.86);backdrop-filter:blur(6px)}
       <li><a href="#plantel">Plantel</a></li>
       <li><a href="#figuras">Figuras</a></li>
       <li><a href="#sponsors">Sponsors</a></li>
+      <li id="registration-nav" hidden><a id="registration-link">Inscripciones</a></li>
       <li class="contact-mobile"><a data-email href="mailto:alexisriver35@gmail.com">Contactanos</a></li>
     </ul>
     <a class="btn btn-pink contact-top" data-email href="mailto:alexisriver35@gmail.com"><svg aria-hidden="true"><use href="#i-mail"/></svg>Contactanos</a>
@@ -583,7 +584,7 @@ dialog::backdrop{background:rgba(3,4,10,.86);backdrop-filter:blur(6px)}
 <dialog id="lb"><button class="close" aria-label="Cerrar">×</button><div class="lb" id="lbBody"></div></dialog>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="data.js?v=20261111"></script>
+<script src="data.js?v=20261111-portal"></script>
 <script src="sheets-config.js?v=0728847"></script>
 <script src="sheets.js?v=20261111"></script>
 <script>
@@ -647,6 +648,13 @@ dialog::backdrop{background:rgba(3,4,10,.86);backdrop-filter:blur(6px)}
     $('#'+id).hidden = !contactReady;
   }
   const signup = safe(D.config.formulario_sponsors);
+  const portalUrl = safe(D.config.portal_inscripciones);
+  if (/^https:\/\/script\.google\.com\/(?:a\/macros\/[^/]+\/|macros\/)s\/[\w-]+\/exec$/.test(portalUrl)) {
+    $('#registration-link').href = portalUrl;
+    $('#registration-nav').hidden = false;
+    $('#team-access').href = portalUrl + '?vista=admin';
+    $('#team-access').textContent = 'Administración';
+  }
   const sponsorLink = $('#sponsor-form-link');
   if (signup || !contactReady) {
     sponsorLink.hidden = false;
